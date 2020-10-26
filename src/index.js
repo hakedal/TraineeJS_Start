@@ -10,6 +10,28 @@ window.cleanup = function () {
   numBlopp.value = 5;
 };
 
+function httpGetRequest(url, callback) {
+  const http = new XMLHttpRequest();
+  http.open("GET", url);
+  http.onload = function () {
+    callback(null, http.response);
+  };
+  http.onerror = function () {
+    callback(http.response);
+  };
+  http.send();
+}
+
+function httpGetRequestExample() {
+  const backend = "https://<subdomain>.codesandbox.io/";
+  httpGetRequest(backend, function (err, data) {
+    if (err) {
+      throw err;
+    }
+    console.log(data);
+  });
+}
+
 window.allAtOnce = function () {
   result.innerText = "50 på en gang";
 };
